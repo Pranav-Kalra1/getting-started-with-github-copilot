@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
-      const response = await fetch("/activities");
+  // Force a network fetch so we don't get a cached activities payload
+  const response = await fetch("/activities", { cache: "no-store" });
       const activities = await response.json();
 
       // Remove existing activity cards but keep the template element
@@ -52,11 +53,47 @@ document.addEventListener("DOMContentLoaded", () => {
           details.participants.forEach((email) => {
             const li = document.createElement("li");
             li.className = "participant-item";
+
             const pill = document.createElement("span");
             pill.className = "participant-pill";
             pill.textContent = getInitials(email);
             li.appendChild(pill);
+
             li.appendChild(document.createTextNode(" " + email));
+
+            // Delete / remove button
+            const deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "participant-delete";
+            deleteBtn.title = "Remove participant";
+            deleteBtn.textContent = "Delete";
+
+            // When clicked, call the unregister API and refresh the activities on success
+            deleteBtn.addEventListener("click", async () => {
+              try {
+                const res = await fetch(
+                  `/activities/${encodeURIComponent(name)}/unregister?email=${encodeURIComponent(email)}`,
+                  { method: "POST", cache: "no-store" }
+                );
+
+                if (res.ok) {
+                  // refresh so availability & list update
+                  fetchActivities();
+                } else {
+                  const err = await res.json().catch(() => ({}));
+                  messageDiv.textContent = err.detail || "Failed to remove participant";
+                  messageDiv.className = "message error";
+                  messageDiv.classList.remove("hidden");
+                  setTimeout(() => {
+                    messageDiv.classList.add("hidden");
+                  }, 5000);
+                }
+              } catch (error) {
+                console.error("Error unregistering participant:", error);
+              }
+            });
+
+            li.appendChild(deleteBtn);
             list.appendChild(li);
           });
         } else {
@@ -92,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `/activities/${encodeURIComponent(activity)}/signup?email=${encodeURIComponent(email)}`,
         {
           method: "POST",
+          cache: "no-store",
         }
       );
 
@@ -101,8 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "message success";
         signupForm.reset();
-        // Refresh activities so participants and availability update
-        fetchActivities();
+        // Refresh activities so participants and availability update.
+        // Await to ensure the UI reflects the change immediately.
+        await fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "message error";

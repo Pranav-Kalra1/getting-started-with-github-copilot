@@ -65,5 +65,19 @@
     </footer>
 
     <script src="app.js"></script>
+
+    <!-- Participants list with unregister functionality (for demonstration, this should be dynamically generated) -->
+    <ul id="participants-list">
+      <li>
+        Participant Name <img src="delete-icon.png" alt="Delete" class="delete-icon" onclick="unregisterParticipant(this)" />
+      </li>
+      <!-- Repeat for other participants -->
+    </ul>
+    <script>
+      function unregisterParticipant(element) {
+        const participantItem = element.parentElement;
+        participantItem.remove(); // Remove the participant from the list
+      }
+    </script>
   </body>
 </html>

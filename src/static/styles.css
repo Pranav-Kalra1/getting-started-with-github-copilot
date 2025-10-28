@@ -154,10 +154,9 @@ footer {
   color: #333;
 }
 
-.participants-list {
-  list-style-type: disc;
-  padding-left: 22px; /* align bullets nicely */
-  margin-top: 6px;
+#participants-list {
+  list-style-type: none; /* Hide bullet points */
+  padding-left: 0; /* Remove default padding */
 }
 
 .participants-list li {
@@ -182,8 +181,29 @@ footer {
   font-size: 12px;
 }
 
+/* Small remove button placed at the end of participant list items */
+.participant-delete {
+  margin-left: auto; /* push to far right in flex container */
+  background: transparent;
+  border: 1px solid #ef9a9a;
+  color: #c62828;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.participant-delete:hover {
+  background-color: #ffebee;
+}
+
 /* Fallback text when no participants */
 .no-participants {
   font-style: italic;
   color: #777;
+}
+
+.delete-icon {
+  cursor: pointer;
+  margin-left: 10px;
 }
