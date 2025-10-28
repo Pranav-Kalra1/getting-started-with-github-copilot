@@ -17,7 +17,26 @@
         <h3>Available Activities</h3>
         <div id="activities-list">
           <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
+          <p class="loading">Loading activities...</p>
+
+          <!-- Template for activity cards (client JS should clone/populate this) -->
+          <template id="activity-template">
+            <div class="activity-card">
+              <h4 class="activity-name"><!-- name --></h4>
+              <p class="activity-description"><!-- description --></p>
+              <p class="activity-schedule"><strong>Schedule:</strong> <!-- schedule --></p>
+              <p class="activity-capacity"><strong>Max participants:</strong> <!-- max --></p>
+
+              <!-- Participants section (bulleted list) -->
+              <div class="participants-section">
+                <h5>Participants</h5>
+                <ul class="participants-list">
+                  <li class="no-participants">No participants yet.</li>
+                  <!-- JS should replace the contents with <li><span class="participant-pill">initials</span> email@example.com</li> -->
+                </ul>
+              </div>
+            </div>
+          </template>
         </div>
       </section>
 
