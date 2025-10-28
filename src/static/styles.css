@@ -142,3 +142,68 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+/* Participants list styling */
+.participants-section {
+  margin-top: 12px;
+}
+
+.participants-section h5 {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+#participants-list {
+  list-style-type: none; /* Hide bullet points */
+  padding-left: 0; /* Remove default padding */
+}
+
+.participants-list li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Small pill for participant initials (optional decorative element) */
+.participant-pill {
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background-color: #e8eaf6;
+  color: #1a237e;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Small remove button placed at the end of participant list items */
+.participant-delete {
+  margin-left: auto; /* push to far right in flex container */
+  background: transparent;
+  border: 1px solid #ef9a9a;
+  color: #c62828;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.participant-delete:hover {
+  background-color: #ffebee;
+}
+
+/* Fallback text when no participants */
+.no-participants {
+  font-style: italic;
+  color: #777;
+}
+
+.delete-icon {
+  cursor: pointer;
+  margin-left: 10px;
+}
